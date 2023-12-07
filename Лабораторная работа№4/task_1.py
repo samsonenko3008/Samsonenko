@@ -1,24 +1,19 @@
 # TODO решите задачу
 
 
-import csv
 import json
 
-input_file = "input.csv"
-output_file = "output.json"
 
-def task():
-    with open(input_file) as c:
-        reader = csv.DictReader(c, delimiter=",", quotechar="\n")
-        row = list(reader)
+def task(filename):
+    with open(filename) as json_file:
+        data = json.load(json_file)
 
-    with open(output_file, "w") as f:
-        json.dump(row, f, indent=4)
-task()
+    sum_ = round(sum(item.get("score", 0) * item.get("weight", 0) for item in data), 3)
+    return sum_
 
-with open(output_file) as output:
-    for line in output:
-        print(line, end="")
+
+result = task("input.json")
+print(result)
 
 
 
